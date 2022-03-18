@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="s01">
+    <form action="/news/" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Discover the Amazing City</legend>
+        </fieldset>
+        <div class="inner-form">
+            <div class="input-field first-wrap">
+                {{form.keyword}}
+            </div>
+            
+            <div class="input-field third-wrap">
+                <input class="btn-search" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="newsImg" src="{% static '/images/Search_001.png' %}" alt="Girl in a jacket">
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex flex-column bd-highlight mb-3">
+                <div class="p-2 bd-highlight">Flex item 1</div>
+                <div class="p-2 bd-highlight">Flex item 2</div>
+                <div class="p-2 bd-highlight">Flex item 3</div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
