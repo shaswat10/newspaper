@@ -14,7 +14,7 @@
             <div class="input-field first-wrap">
                 {{form.keyword}}
             </div>
-            
+
             <div class="input-field third-wrap">
                 <input class="btn-search" type="submit">Search</button>
             </div>
@@ -22,21 +22,26 @@
     </form>
 </div>
 <div class="container mt-5 mb-5">
-    <div class="row">
+    {% if error %}
+    <h2>"please search again</h2>
+    {% endif %}
+    {% for news in newslst %}
+    <div class="row mt-5 mb-5">
         <div class="col-md-4">
-            <img class="newsImg" src="{% static '/images/Search_001.png' %}" alt="Girl in a jacket">
+            <img class="newsImg" src={{news.urlToImage}} alt="Girl in a jacket">
         </div>
         <div class="col-md-2">
 
         </div>
         <div class="col-md-6">
             <div class="d-flex flex-column bd-highlight mb-3">
-                <div class="p-2 bd-highlight">Flex item 1</div>
-                <div class="p-2 bd-highlight">Flex item 2</div>
-                <div class="p-2 bd-highlight">Flex item 3</div>
-              </div>
+                <div class="p-2 bd-highlight" style="font-size: 1.5em; font-weight: bold;">{{news.title}}</div>
+                <div class="p-2 bd-highlight">{{news.description}} {{news.publishedAt}} <a href="{{news.url}}">{{news.url}}</a></div>
+                <div class="p-2 bd-highlight">{{news.content}}</div>
+            </div>
         </div>
     </div>
+    {% endfor %}
 </div>
 
 

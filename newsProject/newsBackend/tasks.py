@@ -7,18 +7,27 @@ from . import models
 
 @shared_task(bind=True)
 def save_news_todb(self, news):
-    print("DSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    # print(news['articles'][0])
-    temp_dict = {}
 
     if news["status"] == 'ok':
         for article in news["articles"]:
-            serialized_source = serializers.SourceSerializer(data=article['source'])
 
-            if serialized_source.is_valid():
-                serialized_source.save()
+            if article['source']['id'] == None:
+                article['source']['id'] = "Empty"
 
-            article['source'] = article['source']['id']
+            # sometimes id data comes as null, so we check for soruce name to see if record exists
+            source_obj = models.sourceModel.objects.filter(name=article['source']['name']).first()
+    
+            if not source_obj:
+                source_dict = {'source_id':article['source']['id'], 'name':article['source']['name']}
+                serialized_source = serializers.SourceSerializer(data=source_dict)
+
+                if serialized_source.is_valid():
+                    source_obj=serialized_source.save()                  
+                else:
+                    print(serialized_source.errors)
+                    continue
+                    
+            article['source'] = source_obj.id   # setting up source i as foreignkey in article table
 
             serialized_news = serializers.NewsSerializer(data=article)
             
@@ -26,5 +35,5 @@ def save_news_todb(self, news):
                 serialized_news.save()
             else:
                 print(serialized_news.errors)
-    # print(news)
+
     return "done"

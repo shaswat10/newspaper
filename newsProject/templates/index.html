@@ -16,10 +16,32 @@
 <style>
 .newsImg{
   width: 100% !important;
+  height: 100% !important;
+}
+
+.navCls{
+  font-weight: bold;
+  font-size: 2em;
 }
 </style>
 
 <body style="margin-bottom: 5em;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand navCls" href="#" >DAILY NEWS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+
+        </ul>
+        <span class="navbar-text">
+          <a class="nav-link" href="{% url 'logout_view' %}">Logout</a>
+        </span>
+      </div>
+    </div>
+  </nav>
 {% block content %}
 
 

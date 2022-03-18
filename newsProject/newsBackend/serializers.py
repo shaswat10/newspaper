@@ -43,7 +43,7 @@ class UserSerializerWithToken(UserSerializer):
     email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])   
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'name', 'token']
+        fields = ['id', 'username', 'email', 'name', 'token', 'password']
 
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
@@ -54,7 +54,8 @@ class SourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.sourceModel
-        fields = ['id', 'name']
+        fields = ['source_id', 'name']
+
 
 
 class NewsSerializer(serializers.ModelSerializer):
